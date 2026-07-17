@@ -183,6 +183,7 @@ option(SLANG_ENABLE_REPLAYER "Enable slang-replay tool" ON)
 
 advanced_option(SLANG_USE_SYSTEM_MINIZ "Build using system Miniz library" OFF)
 advanced_option(SLANG_USE_SYSTEM_LZ4 "Build using system LZ4 library" OFF)
+advanced_option(SLANG_USE_SYSTEM_CMARK "Build using system cmark library" OFF)
 advanced_option(
     SLANG_USE_SYSTEM_VULKAN_HEADERS
     "Build using system Vulkan headers"
@@ -557,6 +558,13 @@ if(${SLANG_USE_SYSTEM_LZ4})
     find_package(lz4 REQUIRED)
     if(NOT TARGET lz4_static)
         add_library(lz4_static ALIAS LZ4::lz4)
+    endif()
+endif()
+
+if(${SLANG_USE_SYSTEM_CMARK})
+    find_package(cmark REQUIRED)
+    if(NOT TARGET cmark)
+        add_library(cmark ALIAS cmark::cmark)
     endif()
 endif()
 

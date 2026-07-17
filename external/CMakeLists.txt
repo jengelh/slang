@@ -129,15 +129,17 @@ set(_prev_BUILD_TESTING ${BUILD_TESTING})
 set(_prev_BUILD_SHARED_LIBS ${BUILD_SHARED_LIBS})
 set(BUILD_TESTING OFF)
 set(BUILD_SHARED_LIBS OFF)
-if(NOT SLANG_OVERRIDE_CMARK_PATH)
-    add_subdirectory(cmark EXCLUDE_FROM_ALL ${system})
-else()
-    add_subdirectory(
-        ${SLANG_OVERRIDE_CMARK_PATH}/cmark
-        cmark
-        EXCLUDE_FROM_ALL
-        ${system}
-    )
+if(NOT ${SLANG_USE_SYSTEM_CMARK})
+    if(NOT SLANG_OVERRIDE_CMARK_PATH)
+        add_subdirectory(cmark EXCLUDE_FROM_ALL ${system})
+    else()
+        add_subdirectory(
+            ${SLANG_OVERRIDE_CMARK_PATH}/cmark
+            cmark
+            EXCLUDE_FROM_ALL
+            ${system}
+        )
+    endif()
 endif()
 set(BUILD_TESTING ${_prev_BUILD_TESTING})
 set(BUILD_SHARED_LIBS ${_prev_BUILD_SHARED_LIBS})
